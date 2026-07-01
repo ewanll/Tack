@@ -3,11 +3,13 @@
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![PyQt6](https://img.shields.io/badge/PyQt6-6.6+-green)
 
-Tack 是一个桌面悬浮待办工具，核心是一个**透明悬浮时钟**，双击打开**周历+待办**主窗口。数据保存在本地 JSON 文件中，可配合 Google Drive / OneDrive / iCloud 实现多设备同步。
+Tack 是一个桌面悬浮待办工具，核心是一个**透明悬浮时钟**，可随意拖动改变位置，双击打开**周历+待办**主窗口。数据保存在本地 JSON 文件中，可配合 Google Drive / OneDrive / iCloud 实现多设备同步。
 
 ## 截图
 
-<img width="591" height="611" alt="Screenshot 2026-07-01 124848" src="https://github.com/user-attachments/assets/e02dac4b-77ef-4ca4-abb8-c0372f9c97d0" />
+<img width="637" height="657" alt="dsaf" src="https://github.com/user-attachments/assets/024f4a86-82db-4f3f-83d5-0126805a661e" />
+
+<img width="393" height="609" alt="Screedsafdnshot 2026-07-01 132722" src="https://github.com/user-attachments/assets/35113906-33da-47ba-8058-5f57a71be928" />
 
 
 ## 功能
