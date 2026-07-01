@@ -14,7 +14,6 @@ htmlcov/
 # ── PyInstaller build ───────────────────
 build/
 dist/
-*.spec
 
 # ── Tack runtime data ───────────────────
 # Runtime JSON files (tack_todos.json, settings.json)
