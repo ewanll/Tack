@@ -919,29 +919,7 @@ function updateSyncStatus(ok) {
 
 function seedSampleData() {
   if (todos.length > 0) return;
-  var today = new Date();
-  var zhSamples = [
-    {text:'整理 Tack 工具的功能需求', done:false},
-    {text:'研究 Google Drive API 接入方案', done:true},
-    {text:'设计浮动时钟小部件的UI', done:false},
-    {text:'实现待办事项的增删改查', done:false},
-    {text:'完成技术选型文档', done:false},
-    {text:'购买生日礼物 🎂', done:true},
-  ];
-  var enSamples = [
-    {text:'Organize Tack feature requirements', done:false},
-    {text:'Research Google Drive API integration', done:true},
-    {text:'Design floating clock widget UI', done:false},
-    {text:'Implement todo CRUD operations', done:false},
-    {text:'Complete tech spec document', done:false},
-    {text:'Buy birthday gift 🎂', done:true},
-  ];
-  var samples = currentLang === 'en' ? enSamples : zhSamples;
-  samples.forEach(function(s, i) {
-    var d = new Date(today);
-    d.setDate(today.getDate() - (s.done ? i % 4 : i % 3));
-    todos.push({id: nextId++, text: s.text, done: s.done, date: dateStr(d), createdAt: d.toISOString()});
-  });
+  todos.push({id: nextId++, text: 'test', done: false, date: dateStr(new Date()), createdAt: new Date().toISOString()});
   saveTodos();
 }
 

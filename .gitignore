@@ -1,4 +1,4 @@
-# Python
+# ── Python ──────────────────────────────
 __pycache__/
 *.pyc
 *.pyo
@@ -7,24 +7,43 @@ __pycache__/
 .venv/
 venv/
 env/
+.pytest_cache/
+.coverage
+htmlcov/
 
-# PyInstaller build artifacts
+# ── PyInstaller build ───────────────────
 build/
 dist/
 *.spec
 
-# Tack runtime data
+# ── Tack runtime data ───────────────────
+# Runtime JSON files (tack_todos.json, settings.json)
 data/
+# Avoid committing local todos with real content
+**/tack_todos.json
 
-# IDE
+# ── Environment / secrets ───────────────
+.env
+.env.local
+*.key
+
+# ── Logs ────────────────────────────────
+*.log
+
+# ── IDE ─────────────────────────────────
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Claude Code config
+# ── Claude Code ─────────────────────────
 .claude/
 
-# OS
+# ── OS ──────────────────────────────────
 .DS_Store
 Thumbs.db
+
+# ── Misc ────────────────────────────────
+# Accidentally created empty placeholder
+git

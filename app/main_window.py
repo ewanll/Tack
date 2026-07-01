@@ -102,26 +102,14 @@ class MainWindow(QWidget):
 
     def _create_sample_data(self) -> list[dict]:
         today = date.today()
-        samples = [
-            ("整理 Tack 工具的功能需求", False, 4),
-            ("研究 Google Drive API 接入方案", True, 2),
-            ("设计浮动时钟小部件的UI", False, 1),
-            ("实现待办事项的增删改查", False, 0),
-            ("完成技术选型文档", False, 3),
-            ("购买生日礼物 🎂", True, 0),
-        ]
-        result = []
-        for i, (text, done, offset) in enumerate(samples):
-            d = today - timedelta(days=offset)
-            result.append({
-                "id": i + 1,
-                "text": text,
-                "done": done,
-                "date": d.isoformat(),
-                "createdAt": d.isoformat() + "T08:00:00.000Z",
-                "sortOrder": i,
-            })
-        return result
+        return [{
+            "id": 1,
+            "text": "test",
+            "done": False,
+            "date": today.isoformat(),
+            "createdAt": today.isoformat() + "T10:00:00.000Z",
+            "sortOrder": 0,
+        }]
 
     def _connect_bridge_signals(self):
         self._bridge.closeRequested.connect(self.hideWindow)
