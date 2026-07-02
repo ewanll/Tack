@@ -11,6 +11,11 @@
 html,body{height:100%;font-family:var(--font-sans);overflow:hidden;background:transparent}
 body{display:flex;align-items:center;justify-content:center;padding:12px}
 #mainWindow{width:100%;max-width:580px;max-height:84vh;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--card-shadow);display:flex;flex-direction:column;overflow:hidden}
+.scroll-area{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,0.06) transparent}
+.scroll-area::-webkit-scrollbar{width:3px}
+.scroll-area::-webkit-scrollbar-track{background:transparent}
+.scroll-area::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.06);border-radius:3px}
+.scroll-area.show-scrollbar::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15)}
 .win-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 12px;border-bottom:1px solid #f0f0f5;flex-shrink:0}
 .win-header-left{display:flex;align-items:center;gap:10px}
 .win-logo{width:28px;height:28px;background:var(--accent-grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff}
@@ -63,10 +68,8 @@ body{display:flex;align-items:center;justify-content:center;padding:12px}
 .todo-search-wrap input{width:100%;padding:7px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:0.80rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s;color:var(--text-primary);background:#fafafa}
 .todo-search-wrap input:focus{border-color:var(--accent);background:#fff}
 .todo-search-wrap input::placeholder{color:#b0b7c3}
-.todo-list{flex:1;overflow-y:auto;min-height:60px;padding-right:4px}
-.todo-list::-webkit-scrollbar{width:4px}
-.todo-list::-webkit-scrollbar-track{background:transparent}
-.todo-list::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:4px}
+.todo-list{flex:1;min-height:60px;padding-right:4px}
+
 .todo-item{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 8px;border-radius:var(--radius-sm);transition:background 0.15s,opacity 0.3s,transform 0.3s;animation:todoIn 0.2s ease;cursor:default}
 @keyframes todoIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .todo-item:hover{background:#f9fafb}
@@ -173,7 +176,7 @@ body{display:flex;align-items:center;justify-content:center;padding:12px}
       <button class="win-btn close" id="mainClose">✕</button>
     </div>
   </div>
-
+  <div class="scroll-area">
   <div class="cal-section">
     <div class="cal-header">
       <div class="cal-header-left">
@@ -208,6 +211,7 @@ body{display:flex;align-items:center;justify-content:center;padding:12px}
       </div>
       <span class="paste-hint" id="pasteHint">Ctrl+V 粘贴多行</span>
     </div>
+  </div>
   </div>
 
   <div class="win-footer">
@@ -480,7 +484,7 @@ function renderTodos() {
 }
 
 function addTodo(text){text=text.trim();if(!text)return;var date=document.getElementById('todoDateInput').value||selectedDate||dateStr(new Date());if(text.indexOf('\n')>=0){var lines=text.split(/\r?\n/).map(function(s){return s.trim();}).filter(function(s){return s;});lines.forEach(function(line){if(line)addTodoSingle(line,date);});document.getElementById('todoInput').value='';document.getElementById('todoInput').focus();return;}addTodoSingle(text,date);}
-function addTodoSingle(text,date){todos.push({id:nextId++,text:text,done:false,date:date,createdAt:new Date().toISOString(),sortOrder:(todos.length>0?Math.max.apply(null,todos.map(function(t){return t.sortOrder||t.id;}))+1:1)});saveTodos();renderTodos();renderCalendar(currentViewDate);requestAnimationFrame(function(){document.getElementById('todoList').scrollTop=document.getElementById('todoList').scrollHeight;});}
+function addTodoSingle(text,date){todos.push({id:nextId++,text:text,done:false,date:date,createdAt:new Date().toISOString(),sortOrder:(todos.length>0?Math.max.apply(null,todos.map(function(t){return t.sortOrder||t.id;}))+1:1)});saveTodos();renderTodos();renderCalendar(currentViewDate);requestAnimationFrame(function(){var sa=document.querySelector('.scroll-area');sa.scrollTop=sa.scrollHeight;});}
 function toggleTodo(id){var td=todos.find(function(x){return x.id===id;});if(td){td.done=!td.done;saveTodos();renderTodos();renderCalendar(currentViewDate);}}
 function deleteTodo(id){var idx=todos.findIndex(function(x){return x.id===id;});if(idx===-1)return;if(activeEditId===id)activeEditId=null;var items=document.querySelectorAll('.todo-item'),target=null;for(var i=0;i<items.length;i++){if(Number(items[i].dataset.id)===id){target=items[i];break;}}if(target){target.classList.add('removing');setTimeout(function(){todos.splice(idx,1);saveTodos();renderTodos();renderCalendar(currentViewDate);},200);}else{todos.splice(idx,1);saveTodos();renderTodos();renderCalendar(currentViewDate);}}
 function escapeHtml(str){var d=document.createElement('div');d.textContent=str;return d.innerHTML;}
@@ -719,6 +723,22 @@ function __tackInit(todosData, settingsData) {
     try{currentFont=_loadSetting(FONT_KEY,'Consolas');if(_fontLegacy[currentFont])currentFont=_fontLegacy[currentFont];}catch(e){}
     _renderLang();renderTodos();renderCalendar(new Date());
   }
+})();
+
+// ================================================================
+// SCROLL AREA — show scrollbar only while scrolling
+// ================================================================
+(function(){
+  var area = document.querySelector('.scroll-area');
+  if (!area) return;
+  var timeout;
+  area.addEventListener('scroll', function(){
+    area.classList.add('show-scrollbar');
+    clearTimeout(timeout);
+    timeout = setTimeout(function(){
+      area.classList.remove('show-scrollbar');
+    }, 1200);
+  });
 })();
 </script>
 </body>
