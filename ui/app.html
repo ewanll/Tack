@@ -57,7 +57,7 @@ body{display:flex;align-items:center;justify-content:center;padding:12px}
 .cal-day .dot{width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:0.5}
 .cal-day .dot.done{background:var(--done-color);opacity:0.6}
 .cal-day.today .dot{opacity:0.8}
-.todo-section{flex:1;display:flex;flex-direction:column;min-height:0;padding:12px 22px 16px}
+.todo-section{flex:1;display:flex;flex-direction:column;min-height:0;padding:12px 22px 4px}
 .todo-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
 .todo-header h3{font-size:0.88rem;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:6px}
 .todo-header h3 .filter-badge{font-size:0.72rem;font-weight:400;color:var(--accent);background:#eff3ff;padding:1px 7px;border-radius:12px}
@@ -108,7 +108,7 @@ body{display:flex;align-items:center;justify-content:center;padding:12px}
 .todo-empty{text-align:center;padding:24px 0 18px;color:var(--text-muted)}
 .todo-empty .icon{font-size:28px;margin-bottom:6px}
 .todo-empty .msg{font-size:0.82rem}
-.todo-input-wrap{display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid #f0f0f5;align-items:center;flex-wrap:wrap}
+.todo-input-wrap{display:flex;gap:6px;padding:10px 22px;border-top:1px solid #f0f0f5;align-items:center;flex-wrap:wrap;flex-shrink:0;background:var(--card-bg)}
 .todo-input-wrap .input-row{display:flex;gap:6px;flex:1;min-width:0}
 .todo-input-wrap input[type="text"]{flex:1;padding:8px 12px;border:2px solid #e5e7eb;border-radius:var(--radius-sm);font-size:0.84rem;font-family:var(--font-sans);outline:none;transition:border-color 0.2s;color:var(--text-primary);background:#fafafa;min-width:0}
 .todo-input-wrap input[type="text"]:focus{border-color:var(--accent);background:#fff}
@@ -203,15 +203,16 @@ body{display:flex;align-items:center;justify-content:center;padding:12px}
       <input type="text" id="todoSearch" placeholder="搜索待办…" />
     </div>
     <div class="todo-list" id="todoList"></div>
-    <div class="todo-input-wrap">
-      <div class="input-row">
-        <input type="text" id="todoInput" placeholder="输入待办，Enter 添加" maxlength="200" />
-        <input type="date" id="todoDateInput" />
-        <button id="btnAddTodo">添加</button>
-      </div>
-      <span class="paste-hint" id="pasteHint">Ctrl+V 粘贴多行</span>
-    </div>
   </div>
+  </div>
+
+  <div class="todo-input-wrap">
+    <div class="input-row">
+      <input type="text" id="todoInput" placeholder="输入待办，Enter 添加" maxlength="200" />
+      <input type="date" id="todoDateInput" />
+      <button id="btnAddTodo">添加</button>
+    </div>
+    <span class="paste-hint" id="pasteHint">Ctrl+V 粘贴多行</span>
   </div>
 
   <div class="win-footer">
